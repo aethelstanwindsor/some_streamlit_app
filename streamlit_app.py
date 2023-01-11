@@ -11,6 +11,6 @@ streamlit.text('Omega 3 & Blueberry Oatmeal')
 streamlit.text('Kale, Spinach & Rocket Smoothie')
 streamlit.text('Hard-Boiled Free-Range Egg')
 
-
+streamlit.multiselect('pick some fruit')
 streamlit.header('🥣🐔Build your own fruit smoothie🥑🥗')
 streamlit.dataframe(my_fruit_list)
