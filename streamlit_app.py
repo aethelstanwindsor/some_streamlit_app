@@ -22,7 +22,7 @@ streamlit.dataframe(fruits_to_show)
 
 results = None
 for target_fruit in fruits_to_show:
-  fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{target_fruit}")
+  fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{target_fruit.lower()}")
   fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
   if results is None:
     results = [fruityvice_normalized]
