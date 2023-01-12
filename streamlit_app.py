@@ -17,6 +17,9 @@ for target_fruit in fruits_to_show:
   else:
     results.append(fruityvice_normalized)
 
+for elem in results:
+  streamlit.dataframe(elem)
+    
 df_results = pd.concat(results)
 streamlit.dataframe(df_results)
 
