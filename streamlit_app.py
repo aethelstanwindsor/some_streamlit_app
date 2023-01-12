@@ -26,7 +26,7 @@ streamlit.write('The user entered ', fruit_choice)
 
 
 
-fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{target_fruit.lower()}")
+fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{fruit_choice.lower()}")
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 
 streamlit.header('More detailed information about the selected food')
