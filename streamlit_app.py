@@ -55,6 +55,6 @@ if streamlit.button(f'insert new fruit'):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   sql = f"insert into fruit_load_list values ('{extra_fruit}');"
   streamlit.text(f'Running sql: {sql}')
-  with my_cnx.cur() as my_cur:
+  with my_cnx.cursor() as my_cur:
     my_cur.execute(sql)
   streamlit.text(f'{extra_fruit} has been added')
