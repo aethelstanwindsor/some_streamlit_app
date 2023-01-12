@@ -40,11 +40,13 @@ streamlit.write('The user entered ', fruit_choice)
 
 
 
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+
 if streamlit.button(f'Get fruit list'):
+  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
     my_cur.execute("SELECT * FROM FRUIT_LOAD_LIST;")
     my_data_rows = my_cur.fetchall()
+  my_cnx.close()
   streamlit.text("Hello from Snowflake, these fruits are in the table:")
   streamlit.dataframe(my_data_rows)
 
@@ -57,4 +59,5 @@ if streamlit.button(f'insert new fruit'):
   streamlit.text(f'Running sql: {sql}')
   with my_cnx.cursor() as my_cur:
     my_cur.execute(sql)
+  my_cnx.close()
   streamlit.text(f'{extra_fruit} has been added')
