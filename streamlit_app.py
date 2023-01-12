@@ -6,14 +6,19 @@ my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.co
 streamlit.title('My super awesome diner website thing')
 my_fruit_list = my_fruit_list.set_index('Fruit')
 
-
+fruits_selected = []
 streamlit.header("Fruityvice Fruit Advice!")
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-streamlit.text(fruityvice_response)
-# write your own comment -what does the next line do? 
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-# write your own comment - what does this do?
-streamlit.dataframe(fruityvice_normalized)
+results = None
+for target_fruit in fruits_to_show:
+  fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{target_fruit}")
+  fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+  if results is None:
+    results = [fruityvice_normalized]
+  else:
+    results.append(fruityvice_normalized)
+
+df_results = pd.concat(results)
+streamlit.dataframe(df_results)
 
 
 
