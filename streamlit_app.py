@@ -33,7 +33,7 @@ try:
     streamlit.dataframe(fruityvice_normalized)
 except URLError as e:
     streamlit.error(e)
-  streamlit.write('The user entered ', fruit_choice)
+streamlit.write('The user entered ', fruit_choice)
 
 
 
