@@ -12,6 +12,7 @@ results = None
 for target_fruit in fruits_to_show:
   fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{target_fruit}")
   fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+  streamlit.dataframe(fruityvice_normalized)
   if results is None:
     results = [fruityvice_normalized]
   else:
