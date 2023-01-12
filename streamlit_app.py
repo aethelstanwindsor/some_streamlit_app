@@ -20,15 +20,14 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 streamlit.header('🥣🐔Build your own fruit smoothie🥑🥗')
 streamlit.dataframe(fruits_to_show)
 
-results = None
-for target_fruit in fruits_to_show:
-  fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{target_fruit.lower()}")
-  fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-  if results is None:
-    results = [fruityvice_normalized]
-  else:
-    results.append(fruityvice_normalized)
 
-streamlit.header('More detailed informatoin about the selected foods')
-df_results = pandas.concat(results)
-streamlit.dataframe(df_results)
+fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
+streamlit.write('The user entered ', fruit_choice)
+
+
+
+fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{target_fruit.lower()}")
+fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+
+streamlit.header('More detailed information about the selected food')
+streamlit.dataframe(fruityvice_normalized)
