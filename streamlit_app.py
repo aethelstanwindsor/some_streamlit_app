@@ -6,23 +6,7 @@ my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.co
 streamlit.title('My super awesome diner website thing')
 my_fruit_list = my_fruit_list.set_index('Fruit')
 
-fruits_to_show = ['melon']
 streamlit.header("Fruityvice Fruit Advice!")
-results = None
-for target_fruit in fruits_to_show:
-  fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{target_fruit}")
-  fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-  streamlit.dataframe(fruityvice_normalized)
-  if results is None:
-    results = [fruityvice_normalized]
-  else:
-    results.append(fruityvice_normalized)
-
-for elem in results:
-  streamlit.dataframe(elem)
-    
-df_results = pandas.concat(results)
-streamlit.dataframe(df_results)
 
 
 
@@ -35,3 +19,16 @@ fruits_selected = streamlit.multiselect(f'pick some fruit', list(my_fruit_list.i
 fruits_to_show = my_fruit_list.loc[fruits_selected]
 streamlit.header('🥣🐔Build your own fruit smoothie🥑🥗')
 streamlit.dataframe(fruits_to_show)
+
+results = None
+for target_fruit in fruits_to_show:
+  fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{target_fruit}")
+  fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+  if results is None:
+    results = [fruityvice_normalized]
+  else:
+    results.append(fruityvice_normalized)
+
+streamlit.header('More detailed informatoin about the selected foods')
+df_results = pandas.concat(results)
+streamlit.dataframe(df_results)
