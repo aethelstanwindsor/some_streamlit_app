@@ -1,4 +1,4 @@
-
+from urllib.error import URLError
 import requests
 import streamlit
 import pandas
@@ -40,3 +40,7 @@ my_cur.execute("SELECT * FROM FRUIT_LOAD_LIST;")
 my_data_rows = my_cur.fetchall()
 streamlit.text("Hello from Snowflake, these fruits are in the table:")
 streamlit.dataframe(my_data_rows)
+
+streamlit.header('Add a fruit to the list?')
+extra_fruit = streamlit.text_input('Your text input', 'example value')
+streamlit.write(f'the user has added their new fruit: {extra_fruit}')
